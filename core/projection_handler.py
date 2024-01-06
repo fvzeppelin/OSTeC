@@ -10,8 +10,9 @@ from tqdm.auto import tqdm
 import PIL.Image
 from PIL import ImageFilter
 import numpy as np
-import external.stylegan2.dnnlib.tflib as tflib
-from external.stylegan2 import pretrained_networks
+#import external.stylegan2.dnnlib.tflib as tflib
+#from external.stylegan2 import pretrained_networks
+from stylegan2_pytorch import load_networks
 from core.generator_model import Generator
 from core.perceptual_model import PerceptualModel, load_images
 import external.stylegan2.dnnlib
@@ -39,8 +40,8 @@ class Projection_Handler():
         self.args = args
 
         # Initialize generator and perceptual model
-        tflib.init_tf()
-        generator_network, discriminator_network, Gs_network = pretrained_networks.load_networks(args.model_url)
+        #tflib.init_tf()
+        generator_network, discriminator_network, Gs_network = load_networks(args.model_url)
         self.generator = Generator(Gs_network, args.batch_size, randomize_noise=args.randomize_noise)
 
         if (args.dlatent_avg != ''):
